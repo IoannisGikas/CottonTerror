@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
     }
-    public  void jump(InputAction.CallbackContext context)
+    public  void Jump(InputAction.CallbackContext context)
     {
         if(context.performed && IsGrounded())
         {
@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isFacingRight = !isFacingRight;
         Vector3 localScale = transform.localScale;
-        localScale.x *= 1f;
+        localScale.x *= -1f;
         transform.localScale = localScale;
     }
     public void Move(InputAction.CallbackContext context)
