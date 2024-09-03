@@ -9,23 +9,16 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public Transform groundCheck;
     public LayerMask groundLayer;
+    public Animator animator;
 
     private float horizontal;
-    public float speed = 8f;
-    public float jumpingPower = 16f;
+    public float speed = 3f;
+    public float jumpingPower = 8f;
     private bool isFacingRight = true;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        rb.velocity = new Vector2(horizontal *speed, rb.velocity.y);
-
+        //Flip
         if (!isFacingRight && horizontal > 0f)
         {
             Flip();
@@ -34,12 +27,19 @@ public class PlayerMovement : MonoBehaviour
         {
             Flip();
         }
+
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+    }
+
+    private void FixedUpdate()
+    {
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
     }
     public  void Jump(InputAction.CallbackContext context)
     {
         if(context.performed && IsGrounded())
         {
-            rb.velocity = new Vector2(rb.velocity.x , jumpingPower);
+            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
         if(context.canceled && rb.velocity.y > 0f)
         {
